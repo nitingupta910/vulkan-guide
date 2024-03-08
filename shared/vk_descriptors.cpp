@@ -1,4 +1,4 @@
-﻿#include <vk_descriptors.h>
+#include <vk_descriptors.h>
 #include "vk_initializers.h"
 
 //> descriptor_bind
