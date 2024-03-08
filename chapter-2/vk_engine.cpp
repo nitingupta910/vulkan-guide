@@ -11,6 +11,7 @@
 #include <array>
 #include <iostream>
 #include <fstream>
+#include <thread>
 
 #include "imgui.h"
 #include "imgui_impl_sdl2.h"
@@ -842,7 +843,7 @@ backgroundEffects.push_back(sky);
 vkDestroyShaderModule(_device, gradientShader, nullptr);
 vkDestroyShaderModule(_device, skyShader, nullptr);
 _mainDeletionQueue.push_function([&]() {
-	vkDestroyPipelineLayout(_device, _gradientPipelineLayout, nullptr);
+    vkDestroyPipelineLayout(_device, _gradientPipelineLayout, nullptr);
 	vkDestroyPipeline(_device, sky.pipeline, nullptr);
 	vkDestroyPipeline(_device, gradient.pipeline, nullptr);
 });

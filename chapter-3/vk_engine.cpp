@@ -11,6 +11,7 @@
 #include <array>
 #include <iostream>
 #include <fstream>
+#include <thread>
 
 #include "imgui.h"
 #include "imgui_impl_sdl2.h"
@@ -94,7 +95,7 @@ void VulkanEngine::init_default_data() {
 	rectangle = uploadMesh(rect_indices,rect_vertices);
 
 //< init_data
-	testMeshes = loadGltfMeshes(this,"..\\..\\assets\\basicmesh.glb").value();
+	testMeshes = loadGltfMeshes(this,"../../assets/basicmesh.glb").value();
 }
 
 void VulkanEngine::cleanup()

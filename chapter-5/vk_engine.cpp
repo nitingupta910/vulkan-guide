@@ -250,8 +250,8 @@ void VulkanEngine::init_background_pipelines()
 	vkDestroyShaderModule(_device, skyShader, nullptr);
 	_mainDeletionQueue.push_function([&]() {
 		vkDestroyPipelineLayout(_device, _gradientPipelineLayout, nullptr);
-		vkDestroyPipeline(_device, sky.pipeline, nullptr);
-		vkDestroyPipeline(_device, gradient.pipeline, nullptr);
+        vkDestroyPipeline(_device, sky.pipeline, nullptr);
+        vkDestroyPipeline(_device, gradient.pipeline, nullptr);
 		});
 }
 
@@ -1084,7 +1084,7 @@ void VulkanEngine::init_sync_structures()
 
 void VulkanEngine::init_renderables()
 {
-    std::string structurePath = { "..\\..\\assets\\structure.glb" };
+    std::string structurePath = { "../../assets/structure.glb" };
     auto structureFile = loadGltf(this,structurePath);
 
     assert(structureFile.has_value());

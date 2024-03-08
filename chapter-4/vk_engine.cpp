@@ -11,6 +11,7 @@
 #include <array>
 #include <iostream>
 #include <fstream>
+#include <thread>
 
 #include "imgui.h"
 #include "imgui_impl_sdl2.h"
@@ -167,7 +168,7 @@ void VulkanEngine::init_default_data() {
 //< default_mat
 
 
-	testMeshes = loadGltfMeshes(this,"..\\..\\assets\\basicmesh.glb").value();
+	testMeshes = loadGltfMeshes(this,"../../assets/basicmesh.glb").value();
 
 //> default_meshes
 	for (auto& m : testMeshes) {
