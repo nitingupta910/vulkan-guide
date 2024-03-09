@@ -24,7 +24,7 @@
 #include "vk_descriptors.h"
 #include "meshes.h"
 #include "vk_loader.h"
-
+#define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/transform.hpp>
 constexpr bool bUseValidationLayers = true;
 

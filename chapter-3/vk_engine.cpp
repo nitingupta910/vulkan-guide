@@ -22,6 +22,7 @@
 #include "vk_images.h"
 #include "vk_pipelines.h"
 #include "vk_descriptors.h"
+#define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/transform.hpp>
 constexpr bool bUseValidationLayers = true;
 
