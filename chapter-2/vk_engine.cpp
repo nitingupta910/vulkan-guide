@@ -312,7 +312,7 @@ void VulkanEngine::run()
 			
 			ComputeEffect& selected = backgroundEffects[currentBackgroundEffect];
 		
-			ImGui::Text("Selected effect: ", selected.name);
+			ImGui::Text("Selected effect: %s", selected.name);
 		
 			ImGui::SliderInt("Effect Index", &currentBackgroundEffect,0, backgroundEffects.size() - 1);
 		
@@ -398,7 +398,7 @@ void VulkanEngine::rebuild_swapchain()
 	vkUpdateDescriptorSets(_device, 1, &cameraWrite, 0, nullptr);
 
 	//add to deletion queues
-	_mainDeletionQueue.push_function([=]() {
+	_mainDeletionQueue.push_function([this]() {
 		vkDestroyImageView(_device, _drawImage.imageView, nullptr);
 		vmaDestroyImage(_allocator, _drawImage.image, _drawImage.allocation);
 	});
@@ -540,7 +540,7 @@ void VulkanEngine::init_swapchain()
 	VK_CHECK(vkCreateImageView(_device, &rview_info, nullptr, &_drawImage.imageView));
 
 	//add to deletion queues
-	_mainDeletionQueue.push_function([=]() {
+	_mainDeletionQueue.push_function([this]() {
 		vkDestroyImageView(_device, _drawImage.imageView, nullptr);
 		vmaDestroyImage(_allocator, _drawImage.image, _drawImage.allocation);
 	});
@@ -571,7 +571,7 @@ void VulkanEngine::init_commands()
 
 	VK_CHECK(vkAllocateCommandBuffers(_device, &cmdAllocInfo, &_immCommandBuffer));
 
-	_mainDeletionQueue.push_function([=]() { 
+	_mainDeletionQueue.push_function([this]() {
 	vkDestroyCommandPool(_device, _immCommandPool, nullptr);
 	});
 
@@ -596,7 +596,7 @@ void VulkanEngine::init_sync_structures()
 
 //> imm_fence
 	VK_CHECK(vkCreateFence(_device, &fenceCreateInfo, nullptr, &_immFence));
-	_mainDeletionQueue.push_function([=]() { vkDestroyFence(_device, _immFence, nullptr); });
+	_mainDeletionQueue.push_function([this]() { vkDestroyFence(_device, _immFence, nullptr); });
 //< imm_fence
 }
 
@@ -687,7 +687,7 @@ void VulkanEngine::init_imgui()
 	ImGui_ImplVulkan_DestroyFontUploadObjects();
 
 	// add the destroy the imgui created structures
-	_mainDeletionQueue.push_function([=]() {
+	_mainDeletionQueue.push_function([this, imguiPool]() {
 		vkDestroyDescriptorPool(_device, imguiPool, nullptr);
 		ImGui_ImplVulkan_Shutdown();
 	});
@@ -842,7 +842,7 @@ backgroundEffects.push_back(sky);
 //destroy structures properly
 vkDestroyShaderModule(_device, gradientShader, nullptr);
 vkDestroyShaderModule(_device, skyShader, nullptr);
-_mainDeletionQueue.push_function([&]() {
+_mainDeletionQueue.push_function([this, sky, gradient]() {
     vkDestroyPipelineLayout(_device, _gradientPipelineLayout, nullptr);
 	vkDestroyPipeline(_device, sky.pipeline, nullptr);
 	vkDestroyPipeline(_device, gradient.pipeline, nullptr);

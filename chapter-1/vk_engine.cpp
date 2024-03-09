@@ -1,4 +1,3 @@
-
 #include "vk_engine.h"
 
 #include <SDL.h>
@@ -31,7 +30,7 @@ void VulkanEngine::init()
 		_windowExtent.height,
 		window_flags
 	);
-
+    
 	init_vulkan();
 
 	init_swapchain();
