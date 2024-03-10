@@ -641,6 +641,9 @@ void VulkanEngine::run()
 
 void VulkanEngine::update_scene()
 {
+    if (_drawExtent.width == 0 || _drawExtent.height == 0) {
+        return;
+    }
 	mainCamera.update();
 
 	glm::mat4 view = mainCamera.getViewMatrix();
